@@ -4,26 +4,31 @@ import uuid
 import platform
 import random
 
-ACCOUNT_ID = "c433938c-8a20-41d5-aca3-0f2564693b5e"
-LICENSE_KEY = input("🔑 Enter your license key: ").strip()
+# ------------------------
+# CONFIG
+# ------------------------
+ACCOUNT_ID = "your-account-id"  # Replace with your Keygen.sh account ID
 
 # Generate random exit codes for this run
 SUCCESS_CODE = random.randint(10000, 99999)
 FAIL_CODE = random.randint(10000, 99999)
 
-hwid = str(uuid.getnode()) + "_" + platform.node()
-
-# Print the exit codes so Batch can read them
-print(f"__EXIT_CODES__ {SUCCESS_CODE} {FAIL_CODE}")
+# ------------------------
+# FUNCTIONS
+# ------------------------
+def get_hwid():
+    """Generate a device fingerprint (HWID)"""
+    return str(uuid.getnode()) + "_" + platform.node()
 
 def validate_license(key):
+    """Validate the license key with Keygen.sh"""
     url = f"https://api.keygen.sh/v1/accounts/{ACCOUNT_ID}/licenses/actions/validate-key"
     payload = {"meta": {"key": key}}
 
     try:
         r = requests.post(url, json=payload, timeout=10)
         r.raise_for_status()
-    except:
+    except Exception:
         sys.exit(FAIL_CODE)
 
     data = r.json()
@@ -34,6 +39,7 @@ def validate_license(key):
     return license_id
 
 def register_machine(license_id, hwid):
+    """Register HWID as a machine under this license"""
     url = f"https://api.keygen.sh/v1/accounts/{ACCOUNT_ID}/licenses/{license_id}/machines"
     payload = {"meta": {"fingerprint": hwid}}
 
@@ -45,8 +51,17 @@ def register_machine(license_id, hwid):
             sys.exit(FAIL_CODE)
         else:
             sys.exit(FAIL_CODE)
-    except:
+    except Exception:
         sys.exit(FAIL_CODE)
 
-license_id = validate_license(LICENSE_KEY)
-register_machine(license_id, hwid)
+# ------------------------
+# MAIN
+# ------------------------
+if __name__ == "__main__":
+    LICENSE_KEY = input("Enter your license key: ").strip()
+    hwid = get_hwid()
+    license_id = validate_license(LICENSE_KEY)
+    register_machine(license_id, hwid)
+
+    # Print exit codes for Batch to read dynamically
+    print(f"__EXIT_CODES__ {SUCCESS_CODE} {FAIL_CODE}")
