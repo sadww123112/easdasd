@@ -2,7 +2,7 @@ import requests
 import sys
 
 # ضع حسابك في keygen.sh
-ACCOUNT_ID = "c433938c-8a20-41d5-aca3-0f2564693b5e"   # استبدلها بالـ Account ID حقك
+ACCOUNT_ID = "1a7148f1-2a51-414c-802a-6bdabf32bc6e"   # استبدلها بالـ Account ID حقك
 
 def check_license(key: str) -> bool:
     url = f"https://api.keygen.sh/v1/accounts/{ACCOUNT_ID}/licenses/actions/validate-key"
@@ -37,5 +37,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
