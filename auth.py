@@ -26,7 +26,7 @@ def check_license(key: str) -> bool:
 
 def main():
     # هنا المستخدم يدخل الليسن
-    license_key = input("license Key").strip()
+    license_key = input("License Key : ").strip()
 
     if check_license(license_key):
         print("valid")
@@ -37,3 +37,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
