@@ -7,7 +7,7 @@ import random
 # ------------------------
 # CONFIG
 # ------------------------
-ACCOUNT_ID = "your-account-id"  # Replace with your Keygen.sh account ID
+ACCOUNT_ID = "c433938c-8a20-41d5-aca3-0f2564693b5e"  # Replace with your Keygen.sh account ID
 
 # Generate random exit codes for this run
 SUCCESS_CODE = random.randint(10000, 99999)
