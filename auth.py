@@ -29,12 +29,13 @@ def main():
     license_key = input("License Key : ").strip()
 
     if check_license(license_key):
-        print("valid")
+        print("Checking....")
         sys.exit(0)
     else:
-        print("invalid")
+        print("Checking....")
         sys.exit(1)
 
 if __name__ == "__main__":
     main()
+
 
